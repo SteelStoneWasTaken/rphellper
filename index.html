@@ -1,1 +1,120 @@
-better readme mayble?
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> About RPHellper </title>
+    <style>
+        body{
+            background-color: #111;
+            color: whitesmoke;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .area{
+            margin-left: 50%;
+            width: 80vw;
+            background-color: #151515;
+            border-radius: 12px;
+            border-width: 1px;
+            border-color: #222;
+            border-style: solid;
+            padding: 10px;
+            text-align: center;
+        }
+        .about{
+            display: inline-block;
+            width: calc(100% - 200px - 10px);
+            min-width: 500px;
+            text-align: left;
+        }
+        .actions{
+            margin-right: 0px;
+            display: inline-block;
+            min-width: 200px;
+            vertical-align: top;
+        }
+        .btn{
+            width: 190px; height: 35px;
+            border-radius: 12px;
+            border-width: 1.5px;
+            border-color: #333;
+            color: whitesmoke;
+            background: #222;
+            font-weight: bolder;
+            border-style: solid;
+            transition: 0.3s;
+        }
+        .btn:hover{
+            border-color: white;
+            color: #151515;
+            background: whitesmoke;
+        }
+        .btn:active{
+            border-color: white;
+            color: whitesmoke;
+            background: #222;
+        }
+        a{
+            color: lightpink;
+        }
+        code{
+            background-color: lightpink;
+            color: #111;
+            border-radius: 5px;
+            padding: 2px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">RPHellper Hellper</h1>
+    <div class="area">
+        <div class="about">
+            <h2>How to install?</h2>
+            <p>
+                <h3>1. Download Rust.</h3>
+                Download rust :D<br>
+                Search for it!
+            </p>
+            <p>
+                <h3>2. Create a Discord bot.</h3>
+                Go to <a href="https://discord.com/developers/applications">Discord developer portal</a>  <br>
+                Log in with your account.  <br>
+                Click on "New Application  <br>
+                Choose a bot name and team.  <br>
+                In the "Bot" menu, tick all the "Privileged Gateway Intents".  <br>
+                This should be enough, personalise as you wish.
+            </p>
+            <p>
+                <h3>3. Invite your bot to your server.</h3>
+                In the "Installation" menu, in the "Install Link" section, click on the link.  <br>
+                This will take you to a discord page, choose your server and its done!
+            </p>
+            <p>
+                <h3>4. Download the source code.</h3>
+                Dowload here, in "Download Source Code" button or <a href="https://github.com/SteelStoneWasTaken/rphellper/archive/refs/heads/master.zip">clicking here</a>. <br>
+                Or download it from github.
+            </p>
+
+            <p>
+                <h3>5. Build the source.</h3>
+                into the source file (must contain 'cargo.toml')  <br>
+                Type <code>cargo build</code>, then press enter and wait for the build.  
+            </p>
+            <p>
+                <h3>6. Run the bot.</h3>
+                In the "bot" menu, take your bot token from the "Token" section.  <br>
+                For security reasons, tokens can only be viewed once, when they are created. If you forget or lose access to your token, you will need to create a new one.  <br>
+                Type <code>DISCORD_TOKEN="Your's bot token" ./target/debug/rphellper</code>.  <br>
+                Your bot is now ready to run!  
+            </p>
+            <br>
+        </div>
+        <div class="actions">
+            <a href="https://github.com/SteelStoneWasTaken/rphellper/archive/refs/heads/master.zip"><button class="btn">Download Source Code</button></a><br>
+            <p style="font-size: 10px; font-weight: bold;"> Dont know how it works? <a href="https://github.com/SteelStoneWasTaken/rphellper/wiki" style="font-weight: bolder;">Click here!<a></p>
+        </div>
+    </div>
+</body>
+</html>
