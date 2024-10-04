@@ -1,8 +1,9 @@
 # How to install?
 1. **Download the dependencies.**
 > The only dependency is rust.  
-> On a Unix-like OS (Linux and Mac) just type `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` in terminal.  
-> For other OS, search for it.  
+> On a Unix-like OS (**Linux and Mac**) just type:  
+> `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh` in terminal.  
+> For other OS (**Windows**, for example), search for it.  
 
 2. **Create a Discord bot.**
 > Go to [Discord developer portal](https://discord.com/developers/applications).  
