@@ -21,6 +21,7 @@
             border-style: solid;
             padding: 10px;
             text-align: center;
+            overflow-x: scroll;
         }
         .about{
             display: inline-block;
@@ -61,8 +62,8 @@
         code{
             background-color: lightpink;
             color: #111;
-            border-radius: 5px;
-            padding: 2px;
+            border-radius: 1px;
+            padding: 1px;
             font-family: monospace;
             font-weight: bold;
         }
@@ -75,40 +76,41 @@
             <h2>How to install?</h2>
             <p>
                 <h3>1. Download Rust.</h3>
-                Download rust :D<br>
-                Search for it!
+                Go to <a href="https://rustup.rs/">https://rustup.rs/</a> and be happy.  <br>
             </p>
             <p>
                 <h3>2. Create a Discord bot.</h3>
                 Go to <a href="https://discord.com/developers/applications">Discord developer portal</a>  <br>
                 Log in with your account.  <br>
-                Click on "New Application  <br>
+                Click on <b>"New Application"</b>.  <br>
                 Choose a bot name and team.  <br>
-                In the "Bot" menu, tick all the "Privileged Gateway Intents".  <br>
+                In the <b>"Bot"</b> menu, tick all the <b>"Privileged Gateway Intents"</b>.  <br>
                 This should be enough, personalise as you wish.
             </p>
             <p>
                 <h3>3. Invite your bot to your server.</h3>
-                In the "Installation" menu, in the "Install Link" section, click on the link.  <br>
+                In the <b>"OAuth2"</b> menu, in the <b>"OAuth2 URL Generator"</b> section, mark <b>"bot"</b> and acess the link below everything.  <br>
                 This will take you to a discord page, choose your server and its done!
             </p>
             <p>
                 <h3>4. Download the source code.</h3>
-                Dowload here, in "Download Source Code" button or <a href="https://github.com/SteelStoneWasTaken/rphellper/archive/refs/heads/master.zip">clicking here</a>. <br>
+                Dowload here, in <b>"Download Source Code"</b> button or <a href="https://github.com/SteelStoneWasTaken/rphellper/archive/refs/heads/master.zip">clicking here</a>. <br>
                 Or download it from github.
             </p>
 
             <p>
                 <h3>5. Build the source.</h3>
-                into the source file (must contain 'cargo.toml')  <br>
-                Type <code>cargo build</code>, then press enter and wait for the build.  
+                Open terminal in the source file (must contain 'cargo.toml').  <br>
+                Type "<code>cargo build</code>", then press enter and wait for the build.  
             </p>
             <p>
                 <h3>6. Run the bot.</h3>
                 In the "bot" menu, take your bot token from the "Token" section.  <br>
                 For security reasons, tokens can only be viewed once, when they are created. If you forget or lose access to your token, you will need to create a new one.  <br>
-                Type <code>DISCORD_TOKEN="Your's bot token" ./target/debug/rphellper</code>.  <br>
-                Your bot is now ready to run!  
+                (On Linux) Type in terminal "<code>DISCORD_TOKEN="Your's bot token" ./target/debug/rphellper</code>" (without quotes).  <br>
+                (On Windows) Type in terminal "<code>$env:DISCORD_TOKEN="Your's bot token"; .\target\debug\rphellper.exe</code>".  <br>
+                <br>
+                <b>Your bot is now ready to run!  </b>
             </p>
             <br>
         </div>
