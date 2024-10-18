@@ -11,20 +11,26 @@ static mut CTX: Option<Arc<Context>> = None;
 struct Handler;
 
 #[tauri::command]
-async fn start(token: String) {
+async fn start(token: String) -> String {
     unsafe {
         if CTX.is_none() {
-                // SET_STATUS: TRying to 
+            println! ("Bot is now starting...");
+
             let intents = GatewayIntents::GUILD_MESSAGES
-                | GatewayIntents::DIRECT_MESSAGES
-                | GatewayIntents::MESSAGE_CONTENT;
+            | GatewayIntents::DIRECT_MESSAGES
+            | GatewayIntents::MESSAGE_CONTENT;
 
-            let mut client = Client::builder(&token, intents)
-                .event_handler(Handler).await
-                .expect("Error creating client");
-
-            if let Err(_) = client.start().await {
-                // SET_STATUS: Error
+            if let Ok(mut client) = Client::builder(&token, intents).event_handler(Handler).await {
+                if let Err(_) = client.start().await {
+                    // SET_STATUS: Error: Failed to start client
+                    println!("Error: Failed to start client.");
+                    return "Error: Failed to start client.".to_string();
+                }
+                return "".to_string();
+            } else {
+                // SET_STATUS: Error: Failed to create client
+                println!("Error: Failed to create client.");
+                return "Error: Failed to create client.".to_string();
             }
         } else {
             if let Some(ref ctx) = CTX {
@@ -32,8 +38,11 @@ async fn start(token: String) {
                 CTX = None;
                 // SET_STATUS: Offline
                 println!("Bot has been stopped.");
+                return "".to_string();
+
             } else {
-                println!("Context is not set.");
+                println!("Error: Context is not set.");
+                return "Error: Context is not set.".to_string();
             }
         }
     }
@@ -50,11 +59,12 @@ impl EventHandler for Handler {
         }
     }
 
-    async fn ready(&self, ctx: Context, _ready: Ready) {
+    async fn ready(&self, ctx: Context, ready: Ready) {
         unsafe {
             CTX = Some(Arc::new(ctx));
 
             // SET_STATUS: Online
+            println!("Bot is now online as `{}`", ready.user.name);
         }
     }
 }
