@@ -1,57 +1,66 @@
-use serenity::all::ChannelId;
 use serenity::async_trait;
 use serenity::model::channel::Message;
-use serenity::prelude::*;
+use serenity::all::ChannelId;
 use serenity::model::gateway::Ready;
-
-use std::sync::Arc;
-
-static mut CTX: Option<Arc<Context>> = None;
+use serenity::prelude::*;
 
 struct Handler;
 
+static mut CTX: Option<Context> = None;
+static mut STATUS: String = String::new();
+static mut HINT: String = String::new(); 
+
 #[tauri::command]
-async fn start(token: String) -> String {
-    unsafe {
-        if CTX.is_none() {
-            println! ("Bot is now starting...");
+async fn say() {
+    let mut _ctx = None;
+    unsafe {_ctx = CTX.clone()}
+    let ctx = _ctx.unwrap();
 
-            let intents = GatewayIntents::GUILD_MESSAGES
-            | GatewayIntents::DIRECT_MESSAGES
-            | GatewayIntents::MESSAGE_CONTENT;
 
-            if let Ok(mut client) = Client::builder(&token, intents).event_handler(Handler).await {
-                if let Err(_) = client.start().await {
-                    // SET_STATUS: Error: Failed to start client
-                    println!("Error: Failed to start client.");
-                    return "Error: Failed to start client.".to_string();
-                }
-                return "".to_string();
-            } else {
-                // SET_STATUS: Error: Failed to create client
-                println!("Error: Failed to create client.");
-                return "Error: Failed to create client.".to_string();
-            }
-        } else {
-            if let Some(ref ctx) = CTX {
-                ctx.shard.shutdown_clean();
-                CTX = None;
-                // SET_STATUS: Offline
-                println!("Bot has been stopped.");
-                return "".to_string();
+    let channel_id = ChannelId::new(1267120740377825386);
+    if let Err(why) = channel_id.say(&ctx.http, "FALEEEEI!").await {
+        println!("Error sending message: {why:?}");
+    }
+}
 
-            } else {
-                println!("Error: Context is not set.");
-                return "Error: Context is not set.".to_string();
-            }
+#[tauri::command]
+async fn start(token: String){
+    // Starting... // // // // // // // // // // //
+    println! ("Bot is now starting...");         //
+    unsafe {STATUS = "Starting...".to_string()}  //
+    unsafe {HINT = "".to_string()}               //
+    // // // // // // // // // // // // // // // //
+
+    let intents = GatewayIntents::GUILD_MESSAGES
+    | GatewayIntents::DIRECT_MESSAGES
+    | GatewayIntents::MESSAGE_CONTENT;
+
+    if let Ok(mut client) = Client::builder(&token, intents)
+    .event_handler(Handler)
+    .await {
+        if let Err(_) = client.start().await {
+            // Error: Failed to start client / // // // // // // // // // //
+            println!("Error: Failed to start client.");                   //
+            unsafe {STATUS = "Offline.".to_string()}                      //
+            unsafe {HINT = "Error: Failed to start client.".to_string()}  //
+        // // // // // // // // // // // // // // // // // // // // // // //
+
         }
+
+    } else {
+        // Error: Failed to create client / // // // // // // // // // //
+        println!("Error: Failed to create client.");                   //
+        unsafe {STATUS = "Offline.".to_string()}                       //
+        unsafe {HINT = "Error: Failed to create client.".to_string()}  //
+        // // // // // // // // // // // // // // // // // // // // // //
+
     }
 }
 
 // Bot functionalities
 #[async_trait]
 impl EventHandler for Handler {
-    async fn message(&self, ctx: Context, msg: Message) {
+    async fn message (&self, ctx: Context, msg: Message) {
         if msg.content == "!ping" {
             if let Err(why) = msg.channel_id.say(&ctx.http, "Pong!").await {
                 println!("Error sending message: {why:?}");
@@ -59,28 +68,29 @@ impl EventHandler for Handler {
         }
     }
 
-    async fn ready(&self, ctx: Context, ready: Ready) {
-        unsafe {
-            CTX = Some(Arc::new(ctx));
+    async fn ready (&self, ctx: Context, ready: Ready) {
+        // Online.  // // // // // // // // // // // // // // // //
+        println!("Bot is now online as `{}`", ready.user.name);  //
+        unsafe {STATUS = format!("Online.")}                     //
+        unsafe {HINT = format!("({})", ready.user.name)}         //
+        // // // // // // // // // // // // // // // // // // // //
 
-            // SET_STATUS: Online
-            println!("Bot is now online as `{}`", ready.user.name);
-        }
+        unsafe {CTX = Some(ctx)}
     }
 }
 
-// Say function
 #[tauri::command]
-async fn say() {
+fn check() -> String {
     unsafe {
-        if let Some(ref ctx) = CTX {
-            let channel_id = ChannelId::new(1267120740377825386);
-            if let Err(why) = channel_id.say(&ctx.http, "FALEEEEI!").await {
-                println!("Error sending message: {why:?}");
-            }
-        } else {
-            println!("Context is not set.");
-        }
+        if STATUS == "" { STATUS = "Offline.".to_string() }
+        if STATUS == "Offline." { CTX = None }
+        return STATUS.clone();
+    }
+}
+#[tauri::command]
+fn check_hint() -> String {
+    unsafe {
+        return HINT.clone();
     }
 }
 
@@ -90,6 +100,8 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
             start,
+            check,
+            check_hint,
             say
         ])
         .run(tauri::generate_context!())
