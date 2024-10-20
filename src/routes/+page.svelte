@@ -69,7 +69,7 @@
     background-color: #222;
     width: calc(100vw - 4px); height: calc(100vh - 4px);
 
-    border: #777 solid 1px;
+    border: #444 solid 1px;
     border-radius: 8px;
 
     color: aliceblue;
@@ -78,7 +78,7 @@
     text-align: right;
   }
   .btn {
-    background-color: #777;
+    background-color: #444;
     width: 20px; height: 20px;
     margin-top: 10px;
     margin-right: 10px;
@@ -86,16 +86,37 @@
     border: none;
 
     border-radius: 100px;
+
+    transition: 0.3s;
+  }
+  .btn:hover {
+    background-color: #777;
   }
   .token {
     height: 0px; width: 150px;
-    padding-top: 13px; padding-bottom: 13px;
-    padding-left: 5px;
+    padding-top: 14px; padding-bottom: 14px;
+    padding-left: 10px;
     font-size: 15px;
+
+    background-color: #333;
+    color: aliceblue;
+    border: #444 solid 1px;
+    border-radius: 8px;
   }
   .start{
     vertical-align: top;
     width: 50px; height: 30px;
+
+    background-color: #333;
+    color: aliceblue;
+    border: #444 solid 1px;
+    border-radius: 8px;
+    
+    transition: 0.3s;
+  }
+  .start:hover{
+    background-color: #777;
+    border: #999 solid 1px;
   }
   .hint {
     font-size: 10px;
